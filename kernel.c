@@ -3,7 +3,7 @@
  */
 
 void kmain(void){
-	const char *str = "my first kernel [swami appe]";
+	const char *str = "my first kernel";
 	char *vidptr = (char*)0xb80000; //video memory address
 	unsigned int i =0;
 	unsigned int j = 0;
