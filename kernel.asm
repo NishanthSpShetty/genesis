@@ -10,7 +10,7 @@ FLAGS     equ MBALIGN | MEMINFO
 MAGIC     equ 0x1BADB002
 CHECKSUM  equ -(MAGIC + FLAGS)
 
-section .text
+section .multiboot
         ;multiboot spec
         align 4
         
@@ -18,6 +18,7 @@ section .text
 	dd FLAGS
 	dd CHECKSUM
 
+section .text
 global _start
 extern kmain	        ;kmain is defined in the c file
 
