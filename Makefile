@@ -15,7 +15,7 @@ qemu: all
 	cp grub.cfg isodir/boot/grub
 	@echo "Creating bootable iso..."
 	grub-mkrescue -o myos.iso isodir
-	@echo "Runnibg the kernel..[kernel-2001]"
+	@echo "Running the kernel..[kernel-2001]"
 	qemu-system-i386 -cdrom myos.iso
 clean:
 	rm *.o
