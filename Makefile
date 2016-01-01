@@ -19,3 +19,6 @@ qemu: all
 	qemu-system-i386 -cdrom myos.iso
 clean:
 	rm *.o
+	rm -R isodir
+	rm myos.iso
+
