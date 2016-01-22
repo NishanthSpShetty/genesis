@@ -1,9 +1,9 @@
 #Simple kernel
 
-Kernel written using assembly and C.
+OS Kernel written using assembly and C.
 
-To run
+To run :
 
-make qemu
+	make qemu
 
 
