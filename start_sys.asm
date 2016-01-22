@@ -20,12 +20,12 @@ section .multiboot
 
 section .text
 global _start
-extern kmain	        ;kmain is defined in the c file
+extern start_kernel     ;kmain is defined in the c file
 
 _start:
   cli 			;block interrupts
   mov esp, stack_space	;set stack pointer
-  call kmain
+  call start_kernel 
   hlt		 	;halt the CPU
 
 section .bss

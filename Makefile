@@ -1,13 +1,20 @@
-all:kernel_asm.o kernel_c.o
+all: start_sys.o start_kernel.o tty.o string.o
 	@echo "Linking to flat bin file kernel-2001"
-	ld -m elf_i386 -T link.ld -o kernel-2001 kernel_asm.o kernel_c.o
+	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o start_kernel.o tty.o string.o
 
-kernel_asm.o :kernel.asm
+
+tty.o:core/tty.c
+	gcc -m32 -c core/tty.c -o tty.o -I .
+string.o: core/string.c
+	gcc -m32 -c core/string.c -o string.o -I .
+
+
+start_sys.o :start_sys.asm
 	@echo "Compiling down to object files..."
-	nasm -f elf32 kernel.asm -o kernel_asm.o
+	nasm -f elf32 start_sys.asm -o start_sys.o
 
-kernel_c.o:kernel.c
-	gcc -m32 -c kernel.c -o kernel_c.o
+start_kernel.o:  start_kernel.c
+	gcc -m32 -c start_kernel.c -o start_kernel.o -I .
 qemu: all
 	@echo "Creating iso file..."
 	mkdir -p isodir/boot/grub
