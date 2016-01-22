@@ -1,4 +1,4 @@
-all: start_sys.o start_kernel.o tty.o string.o
+all: tty.o string.o start_sys.o start_kernel.o 
 	@echo "Linking to flat bin file kernel-2001"
 	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o start_kernel.o tty.o string.o
 

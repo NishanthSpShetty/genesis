@@ -56,6 +56,13 @@ void terminal_putchar(char ch){
 
 //function to write the string onto the screen
 
+// It will change the next write position
+void terminal_writeat(const char *str,size_t x,size_t y){
+	
+	terminal_row = x;
+	terminal_col=y;
+	terminal_writestring(str);
+}
 
 void terminal_write(const char *str,size_t len){
 	size_t i=0;

@@ -13,10 +13,10 @@
 
 
 //A pointer to the vga memory @0xb8000
-uint16_t* const vga_mem_ptr = (uint16_t*)0xB8000;
+static uint16_t* const vga_mem_ptr = (uint16_t*)0xB8000;
 
 //Basic colors provided by vga
-enum vag_color{
+enum vga_color{
 	COLOR_BLACK = 0,
 	COLOR_BLUE = 1,
 	COLOR_GREEN = 2,
@@ -40,7 +40,14 @@ enum vag_color{
  * @parm foreground_color :fg
  * 	 background_color :bg
  * */
-uint8_t make_color(enum vag_color fg,enum vag_color bg){
+
+static uint8_t make_color(enum vga_color fg,enum vga_color bg);
+static uint16_t make_vgaentry(uint8_t _char,uint8_t color);
+
+
+
+
+static uint8_t make_color(enum vga_color fg,enum vga_color bg){
 	//8 bytes attribute 
 	//First(Upper) nibble defines background
 	//Second nibble defines foregraound color
@@ -52,7 +59,7 @@ uint8_t make_color(enum vag_color fg,enum vag_color bg){
  * first byte char to print 
  * second byte attribute value returned by the make_color
  * */
-uint16_t make_vgaentry(uint8_t _char,uint8_t color){
+static uint16_t make_vgaentry(uint8_t _char,uint8_t color){
 	uint16_t _screen_val=color;
 	_screen_val<<=8;
 	return _screen_val | _char;
