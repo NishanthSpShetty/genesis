@@ -43,7 +43,9 @@ enum vga_color{
 
 static uint8_t make_color(enum vga_color fg,enum vga_color bg);
 static uint16_t make_vgaentry(uint8_t _char,uint8_t color);
-
+void outb(uint16_t port, uint8_t value);
+uint8_t inb(uint16_t port);
+uint16_t inw(uint16_t port);
 
 
 
@@ -64,5 +66,5 @@ static uint16_t make_vgaentry(uint8_t _char,uint8_t color){
 	_screen_val<<=8;
 	return _screen_val | _char;
 }
-
+ 
 #endif  /* vga.h */
