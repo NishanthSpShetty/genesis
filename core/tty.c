@@ -47,6 +47,9 @@ void terminal_initialize(){
 		}
 }
 
+void clear_screen(){
+	terminal_initialize();
+}
 
 //Set the terminal color
 void terminal_setcolor(uint8_t color){

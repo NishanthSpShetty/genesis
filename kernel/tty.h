@@ -10,5 +10,6 @@ void terminal_putchar(char c);
 void terminal_write(const char* data, size_t size);
 void terminal_writestring(const char* string);
 void terminal_writeat(const char *,size_t,size_t); 
+void clear_screen();
 void move_cursor(void);
 #endif
