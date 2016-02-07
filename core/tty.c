@@ -72,7 +72,9 @@ void terminal_putchar(char ch){
 	//handle backspace
 	if(ch == 0x08 && terminal_col){
 		terminal_col--;
-		ch=0;
+		ch=' ';
+		terminal_putentryat(ch,terminal_color,terminal_row,terminal_col);
+		ch=0;		
 	}
 	else if(ch=='\r'){
 		terminal_col=0;
