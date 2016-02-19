@@ -1,0 +1,55 @@
+/* Module implementing decriptor init func
+ * and other static function
+ * */
+
+#include "kernel/descriptors.h"
+
+
+//GDT loader a extrern func
+//defined in asm
+void load_gdt(uint32_t);
+
+//gdt table and pointer initializer
+
+static void init_gdt_table();
+static void __init_gdt();
+
+gdt_entry_t gdt_entries[5];
+gdt_ptr_t gdt_ptr;
+
+void init_gdt(){
+	__init_gdt();
+}
+
+void __init_gdt(){
+	//load gdt base table address
+	gdt_ptr.base = (uint32_t)gdt_entries;
+	//setup the limit [65536-1]
+	gdt_ptr.limit = (sizeof(gdt_entry_t)*5 -1);
+
+	//initialize the tables 
+	//setup null gdt table
+	init_gdt_table(gdt_entries[0],0,0,0);
+	//kernel code and data
+	init_gdt_table(gdt_entries[1],0x0,0xFFFFFFFF, 0x9A ,0xCF);
+	init_gdt_table(gdt_entries[2],0x0,0xFFFFFFFF, 0x92,0xCF);
+	//user code and data
+	init_gdt_table(gdt_entries[3],0x0,0xFFFFFFFF, 0xFA,0xCF);
+	init_gdt_table(gdt_entries[4],0x0,0xFFFFFFFF, 0xf2,0xCF);
+
+}
+
+void init_gdt_table(gdt_entry_t *desc,uint32_t base,uint32_t limit,uint8_t access,int8_t flags){
+	
+	//initialize base and limits
+	desc->limit_low   = (limit & 0xFFFF);
+	desc->base_low    =  (base  & 0xFFFF);
+	desc->base_middle = (base & 0xFF0000) >> 16;
+	desc->base_high   = (base>>24) & 0xFF;
+	desc->limit_up	  = (limit & 0xF0000) >> 16;
+	//access bits
+	desc->access	  = access;
+	desc->flags	  = (flags & 0xF);
+
+}
+

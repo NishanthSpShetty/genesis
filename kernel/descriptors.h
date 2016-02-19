@@ -1,7 +1,7 @@
 #ifndef KERNEL_DESCRIPTORS_H
 #define KERNEL_DESCRIPTORS_H
-#include <stdint.h>
-//#include "include/stdtypes.h"
+//#include stdint.h>
+#include "include/stdtypes.h"
 /*Define GDT table
  * limit lower 0-15	 	  16bit
  * base lower field 0-15   	  16bit
@@ -26,11 +26,17 @@ struct gdt_entry{
 	 * */
 	uint8_t access;
 	uint8_t limit_up:4;
+	/* Gr Sz 0 0
+	 * Gr : 0 if limit is ib byte granularity,1 page granularity (4KiB)  
+	 * Sz : 0 defines selector is 16 bit
+	 * 0  : L for x86-64mode
+	 * 0  :
+	 * */
 	uint8_t flags:4;
 	uint8_t base_high;
 } __attribute__((packed));
 
-typedef struct gdt_entry gdt_t;
+typedef struct gdt_entry gdt_entry_t;
 
 /* 32 bit address of base and selector 
  * to register our gdt
@@ -45,4 +51,5 @@ typedef struct{
 
 // public accessible func to setup gdt entry
 void init_gdt();
+
 #endif /*DESCRIPTORS_H */
