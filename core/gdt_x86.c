@@ -52,5 +52,5 @@ static void __init_gdt(){
 	//user code and data
 	init_gdt_table(&gdt_entries[3],0x0,0xffffffff, 0xfa,0xcf);
 	init_gdt_table(&gdt_entries[4],0x0,0xffffffff, 0xf2,0xcf);
-
+	load_gdt((uint32_t)&gdt_ptr);
 }
