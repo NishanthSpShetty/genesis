@@ -30,3 +30,26 @@ void str_cpy(const char *str1,char *str2){
 	str2[i]=0;
 }
 
+//mem setter
+void memset(void *mem_loc,uint8_t value,uint16_t size){
+	int end=0;
+	uint8_t *_mem_loc = (uint8_t*)mem_loc;
+	
+	while(end<size){
+		*(_mem_loc+end++) = value;
+	}
+
+}
+
+//mem copy
+void memcpy(void *src_loc,void *dest_loc,uint16_t till){
+	uint16_t end=0;
+	uint8_t *_dest_loc = (uint8_t*)dest_loc;
+	uint8_t *_src_loc = (uint8_t*)src_loc;
+
+	while(end<till){
+		*(_dest_loc+end) = *(_src_loc+end);
+		end++;
+	}
+}
+

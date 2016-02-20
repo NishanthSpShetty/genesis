@@ -12,4 +12,8 @@ void terminal_writestring(const char* string);
 void terminal_writeat(const char *,size_t,size_t); 
 void clear_screen();
 void move_cursor(void);
+void outb(uint16_t,uint8_t);
+uint8_t inb(uint16_t);
+uint16_t inw(uint16_t);
+
 #endif
