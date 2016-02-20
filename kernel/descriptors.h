@@ -2,6 +2,9 @@
 #define KERNEL_DESCRIPTORS_H
 //#include stdint.h>
 #include "include/stdtypes.h"
+#define GDT_SIZE 5
+#define IDT_SIZE 256
+
 /*Define GDT table
  * limit lower 0-15	 	  16bit
  * base lower field 0-15   	  16bit
@@ -49,7 +52,38 @@ typedef struct{
 	uint32_t base;
 } __attribute__((packed)) gdt_ptr_t;
 
+
+/* define IDT table
+ * base offset lower 16bit
+ * selector 16bit : seg reg value
+ * zero : unsued 8 bit
+ * type_attr : 8bit
+ * 	bit
+ * 	P:1   : present bit 
+ * 	DPL:2 : desc privl level
+ * 	S :1  : storage segment 0 for interrupt
+ * 	gate type  : 4 0xE for 32bit int_gate
+ * base offset high
+*/
+
+//8byte struct
+typedef struct{
+	uint16_t base_offset_l;
+	uint16_t selector;
+	uint8_t zero;
+	uint8_t type_attr;
+	uint16_t base_offset_h;
+}__attribute__((packed)) idt_entry_t;
+
+typedef struct {
+	uint16_t limit;
+	uint32_t base;
+}__attribute__((packed)) idt_ptr_t;
+
 // public accessible func to setup gdt entry
 void init_gdt();
+void init_idt();
+
+
 
 #endif /*DESCRIPTORS_H */
