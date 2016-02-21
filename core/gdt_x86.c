@@ -3,6 +3,7 @@
  * */
 
 #include "kernel/descriptors.h"
+#include "kernel/interrupt.h"
 #include "include/string.h"
 //GDT loader a extrern func
 //defined in asm
@@ -69,5 +70,6 @@ void __init_idt(){
 	
 	//init idt tables
 	memset(idt_entries,0,IDT_SIZE);
-	
+
+	load_idt((uint32_t)&gdt_ptr);
 }

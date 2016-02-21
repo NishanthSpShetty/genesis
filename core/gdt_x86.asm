@@ -1,5 +1,5 @@
 global load_gdt
-
+global load_idt
 load_gdt:
 	;pop gdt_ptr to eax
 	mov eax,[esp+4]
@@ -15,4 +15,11 @@ load_gdt:
 	;to change code segment
 	jmp 0x08:.done
 .done:
+	ret
+
+load_idt:
+	mov eax,[esp+4]
+	lidt [eax]
+
+.done_:
 	ret
