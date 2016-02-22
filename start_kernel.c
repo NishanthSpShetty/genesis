@@ -11,8 +11,7 @@ void start_kernel(void){
 	terminal_initialize();
 	terminal_writestring("Loading gdt into memory");
 	init_gdt();
-	for(i=-999999;i<999999;i++)
-		terminal_writestring("");
+	init_idt();
 	terminal_writestring(":[done]");
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
@@ -21,6 +20,11 @@ void start_kernel(void){
 	terminal_writestring("\n");
 	terminal_writestring("Implementation of a kernel");
 
+//	asm volatile("int $2");
+//	asm volatile("int $0x00");
+//	asm volatile("int $0x00");
+//	asm volatile("int $0x00");
+//	asm volatile("int $0x00");
 	terminal_writeat("Nishanth Shetty",65,24);
 
 }
