@@ -19,12 +19,13 @@ void start_kernel(void){
 	terminal_setcolor(make_color(COLOR_BLACK,COLOR_LIGHT_CYAN));
 	terminal_writestring("\n");
 	terminal_writestring("Implementation of a kernel");
+	for(i=-999999;i<=9999999;i++);
 
-//	asm volatile("int $2");
-//	asm volatile("int $0x00");
-//	asm volatile("int $0x00");
-//	asm volatile("int $0x00");
-//	asm volatile("int $0x00");
+	asm volatile("int $5");
+	asm volatile("int $0x00");
+	asm volatile("int $0x00");
+	asm volatile("int $0x00");
+	asm volatile("int $0x00");
 	terminal_writeat("Nishanth Shetty",65,24);
 
 }

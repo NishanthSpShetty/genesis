@@ -51,7 +51,7 @@ static void __init_gdt(){
 	//load gdt base table address
 	gdt_ptr.base = (uint32_t)gdt_entries;
 	//setup the limit [65536-1]
-	gdt_ptr.limit = (sizeof(gdt_entry_t)*GDT_SIZE -1);
+	gdt_ptr.limit = (uint16_t)(sizeof(gdt_entry_t)*GDT_SIZE -1);
 
 	//initialize the tables 
 	//setup null gdt table
@@ -69,15 +69,16 @@ static void init_idt_table(idt_entry_t *this, uint32_t base,uint8_t sel,uint8_t 
 	this->base_offset_l = base & 0xffff;
 	this->base_offset_h = (base & 0xff0000) >> 16;
 	this->selector	    = sel;
+	this->zero	    = 0;
 	this->type_attr	    = type_attr;
 
 }
 void __init_idt(){
 	idt_ptr.base = (uint32_t)idt_entries;
-	idt_ptr.limit = (uint16_t)(sizeof(idt_entries)*IDT_SIZE -1);
+	idt_ptr.limit = (uint16_t)(sizeof(idt_entry_t)*IDT_SIZE -1);
 	
 	//init idt tables
-	memset(idt_entries,0,IDT_SIZE);
+	memset(idt_entries,0,(uint16_t)IDT_SIZE*(sizeof(idt_entries)));
 
 	//register all service routines, kernel privillaege
 	init_idt_table(&idt_entries[0],(uint32_t)isr0,0x08,0x8E);
@@ -113,5 +114,5 @@ void __init_idt(){
 	init_idt_table(&idt_entries[30],(uint32_t)isr30,0x08,0x8E);
 	init_idt_table(&idt_entries[31],(uint32_t)isr31,0x08,0x8E);
 	
-	load_idt((uint32_t)&gdt_ptr);
+	load_idt((uint32_t)&idt_ptr);
 }
