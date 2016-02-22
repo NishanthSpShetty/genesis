@@ -30,6 +30,8 @@ void init_idt(){
 	__init_idt();
 }
 
+
+
 static void init_gdt_table(gdt_entry_t *desc,uint32_t base,uint32_t limit,uint8_t access,int8_t flags){
 	
 	//initialize base and limits
@@ -63,7 +65,13 @@ static void __init_gdt(){
 	load_gdt((uint32_t)&gdt_ptr);
 }
 
+static void init_idt_table(idt_entry_t *this, uint32_t base,uint8_t sel,uint8_t type_attr){
+	this->base_offset_l = base & 0xffff;
+	this->base_offset_h = (base & 0xff0000) >> 16;
+	this->selector	    = sel;
+	this->type_attr	    = type_attr;
 
+}
 void __init_idt(){
 	idt_ptr.base = (uint32_t)idt_entries;
 	idt_ptr.limit = (uint16_t)(sizeof(idt_entries)*IDT_SIZE -1);
@@ -71,5 +79,39 @@ void __init_idt(){
 	//init idt tables
 	memset(idt_entries,0,IDT_SIZE);
 
+	//register all service routines, kernel privillaege
+	init_idt_table(&idt_entries[0],(uint32_t)isr0,0x08,0x8E);
+	init_idt_table(&idt_entries[1],(uint32_t)isr1,0x08,0x8E);
+	init_idt_table(&idt_entries[2],(uint32_t)isr2,0x08,0x8E);
+	init_idt_table(&idt_entries[3],(uint32_t)isr3,0x08,0x8E);
+	init_idt_table(&idt_entries[4],(uint32_t)isr4,0x08,0x8E);
+	init_idt_table(&idt_entries[5],(uint32_t)isr5,0x08,0x8E);
+	init_idt_table(&idt_entries[6],(uint32_t)isr6,0x08,0x8E);
+	init_idt_table(&idt_entries[7],(uint32_t)isr7,0x08,0x8E);
+	init_idt_table(&idt_entries[8],(uint32_t)isr8,0x08,0x8E);
+	init_idt_table(&idt_entries[9],(uint32_t)isr9,0x08,0x8E);
+	init_idt_table(&idt_entries[10],(uint32_t)isr10,0x08,0x8E);
+	init_idt_table(&idt_entries[11],(uint32_t)isr11,0x08,0x8E);
+	init_idt_table(&idt_entries[12],(uint32_t)isr12,0x08,0x8E);
+	init_idt_table(&idt_entries[13],(uint32_t)isr13,0x08,0x8E);
+	init_idt_table(&idt_entries[14],(uint32_t)isr14,0x08,0x8E);
+	init_idt_table(&idt_entries[15],(uint32_t)isr15,0x08,0x8E);
+	init_idt_table(&idt_entries[16],(uint32_t)isr16,0x08,0x8E);
+	init_idt_table(&idt_entries[17],(uint32_t)isr17,0x08,0x8E);
+	init_idt_table(&idt_entries[18],(uint32_t)isr18,0x08,0x8E);
+	init_idt_table(&idt_entries[19],(uint32_t)isr19,0x08,0x8E);
+	init_idt_table(&idt_entries[20],(uint32_t)isr20,0x08,0x8E);
+	init_idt_table(&idt_entries[21],(uint32_t)isr21,0x08,0x8E);
+	init_idt_table(&idt_entries[22],(uint32_t)isr22,0x08,0x8E);
+	init_idt_table(&idt_entries[23],(uint32_t)isr23,0x08,0x8E);
+	init_idt_table(&idt_entries[24],(uint32_t)isr24,0x08,0x8E);
+	init_idt_table(&idt_entries[25],(uint32_t)isr25,0x08,0x8E);
+	init_idt_table(&idt_entries[26],(uint32_t)isr26,0x08,0x8E);
+	init_idt_table(&idt_entries[27],(uint32_t)isr27,0x08,0x8E);
+	init_idt_table(&idt_entries[28],(uint32_t)isr28,0x08,0x8E);
+	init_idt_table(&idt_entries[29],(uint32_t)isr29,0x08,0x8E);
+	init_idt_table(&idt_entries[30],(uint32_t)isr30,0x08,0x8E);
+	init_idt_table(&idt_entries[31],(uint32_t)isr31,0x08,0x8E);
+	
 	load_idt((uint32_t)&gdt_ptr);
 }

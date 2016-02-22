@@ -1,18 +1,19 @@
 FLAGS=-m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs
-all: tty.o string.o desc.o start_sys.o start_kernel.o 
+all: tty.o string.o desc.o int.o start_sys.o start_kernel.o 
 	@echo "Linking to flat bin file kernel-2001"
-	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o tty.o start_kernel.o string.o gdt.o gdt_l.o
+	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o tty.o start_kernel.o string.o gdt.o gdt_l.o int.o int_.o
 
 
 tty.o:core/tty.c
 	gcc $(FLAGS) -c core/tty.c -o tty.o -I .
 string.o: core/string.c
 	gcc $(FLAGS) -c core/string.c -o string.o -I .
-desc.o:core/gdt_x86.c core/gdt_x86.asm
+desc.o:core/gdt_x86.c core/gdt_x86.asm 
 	gcc $(FLAGS) -c core/gdt_x86.c -o gdt.o -I .
 	nasm -f elf32 core/gdt_x86.asm -o gdt_l.o
-
-
+int.o: core/interrupt.asm core/interrupt.c
+	gcc $(FLAGS) -c core/interrupt.c -o int.o -I .
+	nasm -f elf32 core/interrupt.asm -o int_.o
 start_sys.o :start_sys.asm
 	@echo "Compiling down to object files..."
 	nasm -f elf32 start_sys.asm -o start_sys.o
