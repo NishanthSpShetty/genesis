@@ -32,7 +32,10 @@ void init_idt(){
 	__init_idt();
 }
 
-
+static void kb_init(){
+	outb(PIC1_DATA,0xfd);
+//	outb(PIC2_DATA,0xfd);
+}
 
 static void init_gdt_table(gdt_entry_t *desc,uint32_t base,uint32_t limit,uint8_t access,int8_t flags){
 	
@@ -81,7 +84,7 @@ void __init_idt(){
 	
 	//init idt tables
 	memset(idt_entries,0,(uint16_t)IDT_SIZE*(sizeof(idt_entries)));
-	init_pic();
+//	init_pic();
 	//register all service routines, kernel privillaege
 	init_idt_table(&idt_entries[0],(uint32_t)isr0,0x08,0x8E);
 	init_idt_table(&idt_entries[1],(uint32_t)isr1,0x08,0x8E);
@@ -139,7 +142,14 @@ void __init_idt(){
 
 
 void init_pic(){
+	uint8_t mask1,mask2;
+	
+	//get the default mask
+	mask1=inb(PIC1_DATA);
+	mask2=inb(PIC2_DATA);
+
 	//initilize PIC ICW1
+
 	outb(PIC1_CNTRL,0x11); // init bit and IC4 mode
 	outb(PIC2_CNTRL,0x11);
 	//remap IVT to 32-47 ICW2
@@ -155,4 +165,11 @@ void init_pic(){
 	//set up PIC to x86 mode (0x01)
 	outb(PIC1_DATA,0x01);
 	outb(PIC2_DATA,0x01);
+	//mask the interrupt
+
+	outb(PIC1_DATA,mask1);
+	outb(PIC2_DATA,mask2);
+	
+	//initialize IRQ1 for keyboard
+	kb_init();
 }

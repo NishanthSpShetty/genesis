@@ -362,4 +362,4 @@ com_isr_stub_handler:
 	popa
 	add esp,8
 	sti
-	iret ; pop cs eip eflags ss esp
+	iretd ; pop cs eip eflags ss esp

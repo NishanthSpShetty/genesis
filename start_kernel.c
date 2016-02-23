@@ -12,21 +12,16 @@ void start_kernel(void){
 	terminal_writestring("Loading gdt into memory");
 	init_gdt();
 	init_idt();
+	init_pic();
 	terminal_writestring(":[done]");
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");
 	terminal_setcolor(make_color(COLOR_BLACK,COLOR_LIGHT_CYAN));
 	terminal_writestring("\n");
-	terminal_writestring("Implementation of a kernel");
-	for(i=-999999;i<=9999999;i++);
+//	terminal_writestring("Implementation of a kernel");
 
-	asm volatile("int $5");
-	asm volatile("int $2");
-	asm volatile("int $2");
-	asm volatile("int $37");
-	asm volatile("int $45");
-	
 	terminal_writeat("Nishanth Shetty",65,24);
-
+	while(1){
+	}
 }
