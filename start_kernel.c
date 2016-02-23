@@ -24,8 +24,8 @@ void start_kernel(void){
 	asm volatile("int $5");
 	asm volatile("int $2");
 	asm volatile("int $2");
-	asm volatile("int $3");
-	asm volatile("int $1");
+	asm volatile("int $37");
+	asm volatile("int $45");
 	
 	terminal_writeat("Nishanth Shetty",65,24);
 
