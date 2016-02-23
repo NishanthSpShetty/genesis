@@ -12,13 +12,13 @@ void keyboard_handler(){
 	status = inb(KEYBOARD_STATUS_PORT);
 	if(status & 0x01){
 		//buffer is full->read
-		keycode = inb(KEYBOARD_DATA_PORT);
+	keycode = inb(KEYBOARD_DATA_PORT);
 		if(keycode<0)
 			return;
-		write_dec(keycode,0);
-		terminal_putchar(' ');
+//		write_dec(keycode,0);
+		terminal_putchar(keyboard_map[keycode]);
 		return;
 	}
-	outb(0x20,0x20);
+//	outb(0x20,0x20);
 	return;
 }
