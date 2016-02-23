@@ -133,4 +133,29 @@ void move_cursor(void){
 	outb(0x3D5,pos);
 }
 	
+void write_dec(uint32_t num,uint8_t leading){
+	uint8_t rem;
+	uint32_t n=num;
+	uint8_t ch[15],ch2[15];
+	uint8_t i=0,j=0;
+	if(num ==0){
+		terminal_putchar('0');
+		return;
+	}
+	while(n>0){
+		rem = n%10;
+		n   = n/10;
+		ch[i++]='0'+rem;
+		
+	}
+	ch[i]=0;
+	i=0;
+//	if(leading)
+//		while(ch[i++]=='0');
+	while(ch[i]){
+		ch2[j++]=ch[i++];
+	}
+	ch2[j]=0;
+	terminal_writestring(ch);
 
+}

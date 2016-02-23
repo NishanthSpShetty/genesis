@@ -113,6 +113,7 @@ void __init_idt(){
 	init_idt_table(&idt_entries[29],(uint32_t)isr29,0x08,0x8E);
 	init_idt_table(&idt_entries[30],(uint32_t)isr30,0x08,0x8E);
 	init_idt_table(&idt_entries[31],(uint32_t)isr31,0x08,0x8E);
+	init_idt_table(&idt_entries[32],(uint32_t)isr32,0x08,0x8E);
 	
 	load_idt((uint32_t)&idt_ptr);
 }

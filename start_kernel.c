@@ -22,10 +22,10 @@ void start_kernel(void){
 	for(i=-999999;i<=9999999;i++);
 
 	asm volatile("int $5");
-	asm volatile("int $0x00");
-	asm volatile("int $0x00");
-	asm volatile("int $0x00");
-	asm volatile("int $0x00");
+	asm volatile("int $2");
+//	asm volatile("int $0x33");
+	asm volatile("int $26");
+	asm volatile("int $16");
 	terminal_writeat("Nishanth Shetty",65,24);
 
 }
