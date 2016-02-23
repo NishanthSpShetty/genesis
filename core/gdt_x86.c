@@ -4,6 +4,8 @@
 
 #include "kernel/descriptors.h"
 #include "kernel/interrupt.h"
+#include "kernel/irq.h"
+#include "kernel/tty.h"
 #include "include/string.h"
 //GDT loader a extrern func
 //defined in asm
@@ -79,7 +81,7 @@ void __init_idt(){
 	
 	//init idt tables
 	memset(idt_entries,0,(uint16_t)IDT_SIZE*(sizeof(idt_entries)));
-
+	init_pic();
 	//register all service routines, kernel privillaege
 	init_idt_table(&idt_entries[0],(uint32_t)isr0,0x08,0x8E);
 	init_idt_table(&idt_entries[1],(uint32_t)isr1,0x08,0x8E);
@@ -114,6 +116,43 @@ void __init_idt(){
 	init_idt_table(&idt_entries[30],(uint32_t)isr30,0x08,0x8E);
 	init_idt_table(&idt_entries[31],(uint32_t)isr31,0x08,0x8E);
 	init_idt_table(&idt_entries[32],(uint32_t)isr32,0x08,0x8E);
+	init_idt_table(&idt_entries[33],(uint32_t)isr33,0x08,0x8E);
+	init_idt_table(&idt_entries[34],(uint32_t)isr34,0x08,0x8E);
+	init_idt_table(&idt_entries[35],(uint32_t)isr35,0x08,0x8E);
+	init_idt_table(&idt_entries[36],(uint32_t)isr36,0x08,0x8E);
+	init_idt_table(&idt_entries[37],(uint32_t)isr37,0x08,0x8E);
+	init_idt_table(&idt_entries[38],(uint32_t)isr38,0x08,0x8E);
+	init_idt_table(&idt_entries[39],(uint32_t)isr39,0x08,0x8E);
+	init_idt_table(&idt_entries[40],(uint32_t)isr40,0x08,0x8E);
+	init_idt_table(&idt_entries[41],(uint32_t)isr41,0x08,0x8E);
+	init_idt_table(&idt_entries[42],(uint32_t)isr43,0x08,0x8E);
+	init_idt_table(&idt_entries[43],(uint32_t)isr43,0x08,0x8E);
+	init_idt_table(&idt_entries[44],(uint32_t)isr44,0x08,0x8E);
+	init_idt_table(&idt_entries[45],(uint32_t)isr45,0x08,0x8E);
+	init_idt_table(&idt_entries[46],(uint32_t)isr46,0x08,0x8E);
+	init_idt_table(&idt_entries[47],(uint32_t)isr47,0x08,0x8E);
 	
 	load_idt((uint32_t)&idt_ptr);
+}
+
+
+
+
+void init_pic(){
+	//initilize PIC ICW1
+	outb(PIC1_CNTRL,0x11); // init bit and IC4 mode
+	outb(PIC2_CNTRL,0x11);
+	//remap IVT to 32-47 ICW2
+	outb(PIC1_DATA,0x20); //32 master 0-7
+	outb(PIC2_DATA,0x28); //8-15
+
+	//ICW3  :master ->int connections
+	//	:slave  -> IRQ num of master to connect to
+	outb(PIC1_DATA,0x04);
+	outb(PIC2_DATA,0x02);
+
+	//ICW4 : Control how everything is to operate
+	//set up PIC to x86 mode (0x01)
+	outb(PIC1_DATA,0x01);
+	outb(PIC2_DATA,0x01);
 }
