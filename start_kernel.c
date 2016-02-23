@@ -14,13 +14,14 @@ void start_kernel(void){
 	init_idt();
 	init_pic();
 	terminal_writestring(":[done]");
+	
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");
 	terminal_setcolor(make_color(COLOR_BLACK,COLOR_LIGHT_CYAN));
-	terminal_writestring("\n");
 //	terminal_writestring("Implementation of a kernel");
 
+	terminal_writestring("\nStart typing...\n>>");
 	terminal_writeat("Nishanth Shetty",65,24);
 	while(1){
 	}
