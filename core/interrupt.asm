@@ -157,60 +157,60 @@ isr17:
 isr18:
 	      
 		cli
-		push byte  2
-		push byte  3
+		push byte  18
+		push byte  18
 		jmp com_isr_stub_handler
 
 isr19:
 	      
 		cli
-		push byte  2
-		push byte  3
+		push byte  19
+		push byte  19
 		jmp com_isr_stub_handler
 
 isr20:
 	      
 		cli
-		push byte  2
-		push byte  3
+		push byte  20
+		push byte  20
 		jmp com_isr_stub_handler
 
 isr21:   
 	      
 		cli
-		push byte  2
-		push byte  3
+		push byte  21
+		push byte  21
 		jmp com_isr_stub_handler
 
 isr22:
 	      
 		cli
-		push byte  2
-		push byte  3
+		push byte  22
+		push byte  22
 		jmp com_isr_stub_handler
 
 isr23:
 		cli
-		push byte 2
-		push byte 3
+		push byte 23
+		push byte 23
 		jmp com_isr_stub_handler
 
 isr24:
 		cli
-		push byte 2
-		push byte 3
+		push byte 24
+		push byte 24
 		jmp com_isr_stub_handler
 
 isr25:
 		cli
-		push byte 2
-		push byte 3
+		push byte 25
+		push byte 25
 		jmp com_isr_stub_handler
 
 isr26:
 		cli
-		push byte 2
-		push byte 3
+		push byte 26
+		push byte 26
 		jmp com_isr_stub_handler
 
 isr27:

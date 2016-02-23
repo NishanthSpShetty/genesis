@@ -149,13 +149,16 @@ void write_dec(uint32_t num,uint8_t leading){
 		
 	}
 	ch[i]=0;
+	j=i-1;
 	i=0;
 //	if(leading)
 //		while(ch[i++]=='0');
 	while(ch[i]){
-		ch2[j++]=ch[i++];
+		ch2[j]=ch[i];
+		j--;
+		i++;
 	}
-	ch2[j]=0;
-	terminal_writestring(ch);
+	ch2[i]=0;
+	terminal_writestring(ch2);
 
 }
