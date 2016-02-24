@@ -5,6 +5,8 @@
 #include "kernel/tty.h"
 #include "kernel/vga.h"
 #include "kernel/descriptors.h"
+//temp key value storage
+int key,*key_value;
 void start_kernel(void){
 	int i;
 	//initialize the terminal
@@ -14,7 +16,7 @@ void start_kernel(void){
 	init_idt();
 	init_pic();
 	terminal_writestring(":[done]");
-	
+	key_value = &key;
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");

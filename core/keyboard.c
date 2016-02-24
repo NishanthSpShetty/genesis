@@ -2,6 +2,7 @@
 #include "kernel/keyboard.h"
 #include "kernel/tty.h"
 #include "kernel/irq.h"
+extern int *key_value;
 void keyboard_handler(){
 	uint8_t status;
 	uint8_t keycode;
@@ -17,7 +18,9 @@ void keyboard_handler(){
 			return;
 		//get the keyboard character :scancode
 			
-		status = keyboard_map[keycode];
+		terminal_writestring("prev key typed \n");
+		terminal_putchar(*key_value);
+		*key_value = status = keyboard_map[keycode];
 		if(keycode == 0x2A){
 			shift=1;
 			return;
