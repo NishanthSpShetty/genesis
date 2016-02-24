@@ -5,7 +5,7 @@
 void keyboard_handler(){
 	uint8_t status;
 	uint8_t keycode;
-	uint8_t shift;
+	uint8_t shift=0;
 
 	//Signal EOI to PIC [ACK]
 	outb(PIC1_CNTRL,EOI);
@@ -22,8 +22,8 @@ void keyboard_handler(){
 			shift=1;
 			return;
 		}
-		if(shift)
-			status -= 32;
+		//if(shift)
+		//	status -= 32;
 		terminal_putchar(status);
 		if(status == '\n')
 			terminal_writestring(">>");

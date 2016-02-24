@@ -18,11 +18,11 @@ void start_kernel(void){
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");
-	terminal_setcolor(make_color(COLOR_BLACK,COLOR_LIGHT_CYAN));
+	terminal_writeat("Nishanth Shetty",65,24);
+	terminal_setcolor(make_color(COLOR_GREEN,COLOR_BLACK));
 //	terminal_writestring("Implementation of a kernel");
 
 	terminal_writestring("\nStart typing...\n>>");
-	terminal_writeat("Nishanth Shetty",65,24);
 	while(1){
 	}
 }
