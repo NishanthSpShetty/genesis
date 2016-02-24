@@ -46,13 +46,8 @@ void com_isr_handler(register_t reg){
 		case 34:
 		case 35:
 		case 36:
-			terminal_writestring("dispatching isr =>");
-//			write_dec(reg.err_no,0);
-	//		terminal_putchar('0');
 			break;
 		case 33:
-//			terminal_writestring("\nKeyboard interrupt \n");
-	
 			keyboard_handler();
 			return;
 		default:

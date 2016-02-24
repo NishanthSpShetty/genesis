@@ -5,6 +5,7 @@
 void keyboard_handler(){
 	uint8_t status;
 	uint8_t keycode;
+	uint8_t shift;
 
 	//Signal EOI to PIC [ACK]
 	outb(PIC1_CNTRL,EOI);
@@ -14,13 +15,18 @@ void keyboard_handler(){
 	keycode = inb(KEYBOARD_DATA_PORT);
 		if(keycode<0)
 			return;
-//		write_dec(keycode,0);
+		//get the keyboard character :scancode
+			
 		status = keyboard_map[keycode];
+		if(keycode == 0x2A){
+			shift=1;
+			return;
+		}
+		if(shift)
+			status -= 32;
 		terminal_putchar(status);
 		if(status == '\n')
 			terminal_writestring(">>");
-		return;
 	}
-//	outb(0x20,0x20);
 	return;
 }
