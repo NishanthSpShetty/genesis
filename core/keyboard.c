@@ -2,34 +2,34 @@
 #include "kernel/keyboard.h"
 #include "kernel/tty.h"
 #include "kernel/irq.h"
-extern int *key_value;
+#include "include/stdtypes.h"
+
+extern keystat_t key_buffer;
 void keyboard_handler(){
-	uint8_t status;
-	uint8_t keycode;
-	uint8_t shift=0;
+	uint8_t status=0,shift=0;
 
 	//Signal EOI to PIC [ACK]
 	outb(PIC1_CNTRL,EOI);
 	status = inb(KEYBOARD_STATUS_PORT);
 	if(status & 0x01){
 		//buffer is full->read
-	keycode = inb(KEYBOARD_DATA_PORT);
-		if(keycode<0)
+	key_buffer.cur_keycode = inb(KEYBOARD_DATA_PORT);
+		if(key_buffer.cur_keycode<0)
 			return;
 		//get the keyboard character :scancode
 			
-		terminal_writestring("prev key typed \n");
-		terminal_putchar(*key_value);
-		*key_value = status = keyboard_map[keycode];
-		if(keycode == 0x2A){
-			shift=1;
-			return;
+		key_buffer.cur_keychar = keyboard_map[key_buffer.cur_keycode];
+			
+		if(key_buffer.prev_keycode == 0x2A && key_buffer.cur_keychar<='z'&& key_buffer.cur_keychar>='a'){
+			key_buffer.prev_keycode = key_buffer.cur_keycode; 
+			key_buffer.cur_keychar -= 32;
 		}
-		//if(shift)
-		//	status -= 32;
-		terminal_putchar(status);
-		if(status == '\n')
-			terminal_writestring(">>");
+		//display the char :[#debug]
+		terminal_putchar(key_buffer.cur_keychar);
+		
+		if(key_buffer.cur_keychar == '\n')
+			terminal_writestring(">>"); 
+		key_buffer.prev_keycode = key_buffer.cur_keycode;
 	}
 	return;
 }

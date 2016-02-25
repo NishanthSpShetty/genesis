@@ -3,6 +3,15 @@
 /*Keyboard handlers and definitioan */
 #define KEYBOARD_STATUS_PORT 0x64
 #define KEYBOARD_DATA_PORT   0x60
+//structure storing keyboard input values
+#include "include/stdtypes.h"
+typedef struct{
+	uint8_t prev_keycode;
+	uint8_t cur_keycode;
+	uint8_t cur_keychar;
+}keystat_t;
+
+keystat_t key_buffer;
 
 char keyboard_map[128] = {0,  27, '1', '2', '3', '4', '5', '6', '7', '8',/* 9 */ '9', '0', '-', '=', 
 	'\b',/* Backspace */
@@ -43,6 +52,8 @@ char keyboard_map[128] = {0,  27, '1', '2', '3', '4', '5', '6', '7', '8',/* 9 */
 
 //uint8_t getch();
 void keyboard_handler();
-
+//keyboard irq initializer function
+//setup keyboard buffers
+void kbinit();
 
 #endif /*keyboard.h*/

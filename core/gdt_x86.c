@@ -31,10 +31,12 @@ void init_gdt(){
 void init_idt(){
 	__init_idt();
 }
+//keyboard buffer
 
-static void kb_init(){
+void kb_init(){
 	outb(PIC1_DATA,0xfd);
 //	outb(PIC2_DATA,0xfd);
+	
 }
 
 static void init_gdt_table(gdt_entry_t *desc,uint32_t base,uint32_t limit,uint8_t access,int8_t flags){
