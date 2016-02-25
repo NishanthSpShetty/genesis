@@ -19,9 +19,20 @@ void keyboard_handler(){
 		//get the keyboard character :scancode
 			
 		key_buffer.cur_keychar = keyboard_map[key_buffer.cur_keycode];
-			
-		if(key_buffer.prev_keycode == 0x2A && key_buffer.cur_keychar<='z'&& key_buffer.cur_keychar>='a'){
-			key_buffer.prev_keycode = key_buffer.cur_keycode; 
+		
+		if( key_buffer.cur_keycode == CAPS_LOCK){
+			if( key_buffer.prev_keycode == CAPS_LOCK)
+				key_buffer.prev_keycode=0;
+			else
+				key_buffer.prev_keycode=CAPS_LOCK;
+			return;
+		}
+
+		if((key_buffer.prev_keycode == LEFT_SHIFT 	 \
+			||key_buffer.prev_keycode == RIGHT_SHIFT \
+			|| key_buffer.prev_keycode == CAPS_LOCK) \
+			&& ( key_buffer.cur_keychar<='z'&& key_buffer.cur_keychar>='a')){
+
 			key_buffer.cur_keychar -= 32;
 		}
 		//display the char :[#debug]
@@ -29,7 +40,8 @@ void keyboard_handler(){
 		
 		if(key_buffer.cur_keychar == '\n')
 			terminal_writestring(">>"); 
-		key_buffer.prev_keycode = key_buffer.cur_keycode;
+		if(key_buffer.prev_keycode!=CAPS_LOCK)
+			key_buffer.prev_keycode = key_buffer.cur_keycode;
 	}
 	return;
 }
