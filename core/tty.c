@@ -52,6 +52,7 @@ void clear_screen(){
 	terminal_initialize();
 }
 
+
 //Set the terminal color
 void terminal_setcolor(uint8_t color){
 	terminal_color = color;
@@ -94,9 +95,11 @@ void terminal_putchar(char ch){
 	//check whether you reached the end of the screen
 	if(ch!=0 &&  ++terminal_col == VGA_WIDTH ){
 		terminal_col = 0;
-		if(++terminal_row == VGA_HEIGHT)
-			terminal_row = 0;
+		terminal_row++;
 	}
+
+		if(terminal_row == VGA_HEIGHT)
+			terminal_row = 4;
 	move_cursor();
 }
 
