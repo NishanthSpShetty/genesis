@@ -132,8 +132,21 @@ void move_cursor(void){
 	outb(0x3D4,15);
 	outb(0x3D5,pos);
 }
+//wrapper to preserve the cusror position	
+void write_dec_at(uint32_t num){
 	
-void write_dec(uint32_t num,uint8_t leading){
+	int tempx,tempy;	
+	tempy = terminal_row;
+	tempx = terminal_col;
+	terminal_row = y;
+	terminal_col= x;
+	write_dec(num);
+	terminal_row = tempy;
+	terminal_col=tempx;
+	move_cursor();
+}
+	
+void write_dec(uint32_t num){
 	uint8_t rem;
 	uint32_t n=num;
 	uint8_t ch[15],ch2[15];
