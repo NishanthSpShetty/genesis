@@ -151,7 +151,7 @@ void write_dec(uint32_t num){
 	uint32_t n=num;
 	uint8_t ch[15],ch2[15];
 	uint8_t i=0,j=0;
-	if(num ==0){
+	if(num == 0){
 		terminal_putchar('0');
 		return;
 	}

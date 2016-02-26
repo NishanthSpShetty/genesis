@@ -18,12 +18,14 @@ void start_kernel(void){
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");
-	terminal_writeat("Nishanth Shetty",57,24);
+//	terminal_writeat("Nishanth Shetty [",57,24);
 	terminal_setcolor(make_color(COLOR_GREEN,COLOR_BLACK));
 //	terminal_writestring("Implementation of a kernel");
 
 	//initialize and start timer to interrupt at every 10ms >100Hz
 	init_timer(10000); //1ms
+	
+	terminal_writeat("Time: [",65,24);
 	terminal_writestring("\nStart typing...\n>>");
 	while(1){
 	}
