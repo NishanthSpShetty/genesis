@@ -161,5 +161,5 @@ void write_dec(uint32_t num,uint8_t leading){
 	ch2[i]=0;
 	terminal_writestring(ch2);
 	move_cursor();	
-	return 0;
+	return;
 }

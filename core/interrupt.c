@@ -2,6 +2,7 @@
  * */
 
 #include "kernel/interrupt.h"
+#include "kernel/timer.h"
 #include "kernel/tty.h"
 
 /* Interrupt dispatcher
@@ -43,6 +44,8 @@ void com_isr_handler(register_t reg){
 		case 30:
 		case 31:
 		case 32:
+			//timer interrupt
+			timer_handler();
 		case 34:
 		case 35:
 		case 36:
