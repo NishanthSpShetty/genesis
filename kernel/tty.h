@@ -13,6 +13,7 @@ void terminal_writeat(const char *,size_t,size_t);
 void write_dec(uint32_t);
 void write_dec_at(uint32_t,size_t, size_t);
 void clear_screen();
+void clear_window();
 void move_cursor(void);
 void outb(uint16_t,uint8_t);
 uint8_t inb(uint16_t);

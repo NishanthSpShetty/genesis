@@ -41,8 +41,8 @@ void terminal_initialize(){
 	terminal_color = make_color(COLOR_LIGHT_GREY,COLOR_BLACK);
 	terminal_buffer = vga_mem_ptr;
 	
-	for(;y<VGA_HEIGHT;y++)
-		for(;x<VGA_WIDTH;x++){
+	for(x=0;x<VGA_WIDTH;x++)
+		for(y=0;y<VGA_HEIGHT;y++){
 			index = y*VGA_WIDTH +x;
 			terminal_buffer[index] = make_vgaentry(' ',terminal_color);
 		}
@@ -52,7 +52,14 @@ void clear_screen(){
 	terminal_initialize();
 }
 
-
+void clear_window(){
+	size_t x,y,index=0;
+	for(x=0;x<VGA_WIDTH;x++)
+		for(y=1;y<VGA_HEIGHT;y++){
+			index = y*VGA_WIDTH +x;
+			terminal_buffer[index] = make_vgaentry(' ',terminal_color);
+		}
+}
 //Set the terminal color
 void terminal_setcolor(uint8_t color){
 	terminal_color = color;
@@ -70,6 +77,14 @@ void terminal_putentryat(char _char,uint8_t color,size_t y,size_t x){
 //function to write the char., continuos location [LINEAR]
 void terminal_putchar(char ch){
 	
+
+	
+	
+	
+	if(terminal_row == VGA_HEIGHT){
+			terminal_row = 1;
+			clear_window();
+		}
 
 	//handle backspace
 	if(ch == 0x08 && terminal_col){
@@ -98,8 +113,6 @@ void terminal_putchar(char ch){
 		terminal_row++;
 	}
 
-		if(terminal_row == VGA_HEIGHT)
-			terminal_row = 4;
 	move_cursor();
 }
 
