@@ -55,7 +55,7 @@ void clear_screen(){
 void clear_window(){
 	size_t x,y,index=0;
 	for(x=0;x<VGA_WIDTH;x++)
-		for(y=1;y<VGA_HEIGHT;y++){
+		for(y=2;y<VGA_HEIGHT;y++){
 			index = y*VGA_WIDTH +x;
 			terminal_buffer[index] = make_vgaentry(' ',terminal_color);
 		}
@@ -82,7 +82,7 @@ void terminal_putchar(char ch){
 	
 	
 	if(terminal_row == VGA_HEIGHT){
-			terminal_row = 1;
+			terminal_row = 2;
 			clear_window();
 		}
 

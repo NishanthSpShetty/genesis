@@ -17,7 +17,7 @@ void start_kernel(void){
 	init_timer(10000); //1ms
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
-	terminal_writestring("-------------------------------------Ni-OS--------------------------------------\n");
+	terminal_writestring("-------------------------------------Ni-OS--------------------------------------");
 //	terminal_writeat("Nishanth Shetty [",57,24);
 	terminal_setcolor(make_color(COLOR_GREEN,COLOR_BLACK));
 //	terminal_writestring("Implementation of a kernel");
