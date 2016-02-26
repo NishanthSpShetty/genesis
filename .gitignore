@@ -1,3 +1,4 @@
 kernel-2001
 *.o
-
+./isodir
+./myiso.iso
