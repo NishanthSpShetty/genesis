@@ -133,7 +133,7 @@ void move_cursor(void){
 	outb(0x3D5,pos);
 }
 //wrapper to preserve the cusror position	
-void write_dec_at(uint32_t num){
+void write_dec_at(uint32_t num,size_t x,size_t y){
 	
 	int tempx,tempy;	
 	tempy = terminal_row;
