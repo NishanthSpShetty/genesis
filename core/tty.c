@@ -76,11 +76,7 @@ void terminal_putentryat(char _char,uint8_t color,size_t y,size_t x){
 
 //function to write the char., continuos location [LINEAR]
 void terminal_putchar(char ch){
-	
 
-	
-	
-	
 	if(terminal_row == VGA_HEIGHT){
 			terminal_row = 2;
 			clear_window();
@@ -169,8 +165,12 @@ void write_dec(uint32_t num){
 	uint8_t i=0,j=0;
 	if(num == 0){
 		terminal_putchar('0');
+		terminal_putchar('0');
 		return;
 	}
+	if(num<10)
+		terminal_putchar('0');
+
 	while(n>0){
 		rem = n%10;
 		n   = n/10;

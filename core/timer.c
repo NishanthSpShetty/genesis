@@ -20,11 +20,13 @@ void init_timer(uint16_t frequency){
 }
 
 //define timer interrupt handler
-uint32_t count=0,seconds=0,min=0;
+uint32_t count=0,seconds=0,min=0,hour=0;
 void timer_handler(){
 	//send End Of Interrupt to master
 	outb(PIC1,EOI);
 	if(count%1000 == 0){
+		write_dec_at(hour,68,24);
+		terminal_writeat("h:",70,24);
 		write_dec_at(min,72,24);
 		terminal_writeat("m:",74,24);
 		write_dec_at(seconds++,76,24);
@@ -35,6 +37,9 @@ void timer_handler(){
 		}
 		if(min==60){
 			min=0;
+			hour++;
+			if(hour==12)
+				hour=0;
 		}
 
 	}

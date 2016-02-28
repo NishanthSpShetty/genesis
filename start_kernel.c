@@ -14,7 +14,6 @@ void start_kernel(void){
 	init_gdt();
 	init_idt();
 	init_pic();
-	init_timer(10000); //1ms
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------");
@@ -24,7 +23,9 @@ void start_kernel(void){
 
 	//initialize and start timer to interrupt at every 10ms >100Hz
 	
-	terminal_writeat("Time: [",65,24);
+	init_timer(1000);
+
+	terminal_writeat("Time:[",62,24);
 	terminal_writestring("Start typing...\n>>");
 	
 	while(1){
