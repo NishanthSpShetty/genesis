@@ -93,6 +93,10 @@ void terminal_putchar(char ch){
 		terminal_col=0;
 		ch=0;
 	}
+	else if(ch=='\t'){
+		ch=0;
+		terminal_col = (terminal_col+8)& ~(7);
+	}
 	else if(ch=='\n'){
 		ch=0;
 		terminal_row++;
