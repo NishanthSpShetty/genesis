@@ -31,7 +31,7 @@ struct gdt_entry{
 	uint8_t limit_up:4;
 	/* Gr Sz 0 0
 	 * Gr : 0 if limit is ib byte granularity,1 page granularity (4KiB)  
-	 * Sz : 0 defines selector is 16 bit
+	 * Sz : 0 defines selector is 16 bit 1: 32bit
 	 * 0  : L for x86-64mode
 	 * 0  :
 	 * */
