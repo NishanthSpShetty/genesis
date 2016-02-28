@@ -14,4 +14,5 @@ SECTIONS{
 	}
 	.data : {*(.text)}
 	.bss :  {*(.bss)}
+	kernel_heap_addr = .;
 }
