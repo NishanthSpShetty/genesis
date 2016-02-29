@@ -32,7 +32,7 @@ void start_kernel(void){
 //	terminal_writeat("Time:[",62,24);
 //	terminal_writestring("Start typing...\n>>");
 	terminal_writestring("Testing paging...");
-	uint32_t *ptr = (uint32_t*)0xa000000;
+	uint32_t *ptr = (uint32_t*)0xa0000fff00;
 //	asm volatile("int $14");
 	uint32_t fault = *ptr;
 

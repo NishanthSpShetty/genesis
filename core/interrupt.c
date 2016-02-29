@@ -42,10 +42,11 @@ void com_isr_handler(register_t reg){
 		case 27:
 		case 30:
 		case 31:
+			terminal_writestring("\nInterrupt handler for this interrupt hasn't been registered yet.");
 			break;
 			
 		case 14:
-			page_fault_handler(reg);
+		//	page_fault_handler(reg);
 			break;
 		case 32:
 			//timer interrupt
