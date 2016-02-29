@@ -4,7 +4,6 @@
 #include "kernel/kmalloc.h"
 #include "include/stdtypes.h"
 
-extern uint32_t kernel_heap_addr;
 
 uint32_t kernel_heap = (uint32_t)&kernel_heap_addr;
 

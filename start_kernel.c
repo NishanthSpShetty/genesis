@@ -6,6 +6,9 @@
 #include "kernel/vga.h"
 #include "kernel/descriptors.h"
 #include "kernel/timer.h"
+#include "kernel/kmalloc.h"
+#include "include/stdtypes.h"
+#include "include/string.h"
 //temp key value storage
 void start_kernel(void){
 	//initialize the terminal
@@ -24,7 +27,6 @@ void start_kernel(void){
 	//initialize and start timer to interrupt at every 10ms >100Hz
 	
 	init_timer(1000);
-
 	terminal_writeat("Time:[",62,24);
 	terminal_writestring("Start typing...\n>>");
 	

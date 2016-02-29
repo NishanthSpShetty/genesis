@@ -27,7 +27,6 @@ void com_isr_handler(register_t reg){
 		case 11:
 		case 12:
 		case 13:
-		case 14:
 		case 15:
 		case 16:
 		case 17:
@@ -43,9 +42,15 @@ void com_isr_handler(register_t reg){
 		case 27:
 		case 30:
 		case 31:
+			break;
+			
+		case 14:
+			//page_fault_handler();
+			break;
 		case 32:
 			//timer interrupt
 			timer_handler();
+			break;
 		case 34:
 		case 35:
 		case 36:
