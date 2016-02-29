@@ -145,7 +145,7 @@ isr13:
 isr14:
 	      
 		cli
-		push byte  14
+	;	push byte  14 err code
 		push byte  14
 		jmp com_isr_stub_handler
 

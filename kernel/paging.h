@@ -38,7 +38,7 @@ typedef struct{
  * Page table directory structure
  * Stores th info on page table 
  * */
-typdef struct{
+typedef struct{
 	//array of pointers to page tables;
 	page_table_t *pages[1024];
 	/** array of page table physical address
@@ -58,7 +58,7 @@ void initialize_paging();
 
 //page directory loader -> CR3
 
-void switch_page_directory(page_directory_t *new_dir);
+void switch_page_dir(page_directory_t *new_dir);
 
 /*get page pointer
  * make : if not present in page table create it

@@ -45,7 +45,7 @@ void com_isr_handler(register_t reg){
 			break;
 			
 		case 14:
-			//page_fault_handler();
+			page_fault_handler(reg);
 			break;
 		case 32:
 			//timer interrupt

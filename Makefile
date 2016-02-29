@@ -1,12 +1,14 @@
 FLAGS=-m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs
-all: tty.o string.o desc.o int.o start_sys.o start_kernel.o keyboard.o timer.o kmalloc.o
+all: tty.o string.o desc.o int.o start_sys.o start_kernel.o keyboard.o timer.o kmalloc.o paging.o
 	@echo "Linking to flat bin file kernel-2001"
-	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o tty.o start_kernel.o string.o gdt.o gdt_l.o int.o int_.o keyboard.o timer.o kmalloc.o
+	ld -m elf_i386 -T link.ld -o kernel-2001 start_sys.o tty.o start_kernel.o string.o gdt.o gdt_l.o int.o int_.o keyboard.o timer.o kmalloc.o paging.o
 
 kmalloc.o: core/kmalloc.c
 	gcc $(FLAGS) -c core/kmalloc.c -o kmalloc.o -I .
 
-
+paging.o:core/paging.c
+	gcc $(FLAGS) -c core/paging.c -o paging.o -I .
+	
 timer.o: core/timer.c
 	gcc $(FLAGS) -c core/timer.c -o timer.o -I .
 
