@@ -19,14 +19,14 @@ typedef struct{
 	//0 ->supervisor 1->user mode
 	uint32_t user:1;
 	//Reserved 2 bits for CPU
-//	uint32_t rsvd:2;
+	uint32_t rsvd:2;
 	//page accessed ->1
 	uint32_t accessed:1;
 	//page has been written to (dirty bit)
 	uint32_t dirty:1;
 	//reserved :2 bits
 	//3 bits available for kernel &unused.
-	uint32_t unused:7;
+	uint32_t unused:5;
 	uint32_t frame:20;
 }page_t;
 

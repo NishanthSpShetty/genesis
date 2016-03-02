@@ -18,7 +18,6 @@ void start_kernel(void){
 	init_gdt();
 	init_idt();
 	init_pic();
-	initialize_paging();
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------");
@@ -28,13 +27,16 @@ void start_kernel(void){
 
 	//initialize and start timer to interrupt at every 10ms >100Hz
 	
+	initialize_paging();
 	init_timer(1000);
 	terminal_writeat("Time:[",62,24);
 	terminal_writestring("Start typing...\n>>");
 	terminal_writestring("Testing paging...");
-	uint32_t *ptr = (uint32_t*)0xa0000fff0f0;
+//	uint32_t *ptr = (uint32_t*)0xafff0f0;
 //	asm volatile("int $14");
-	uint32_t fault = *ptr;
+//	uint32_t fault = *ptr;
+//	*ptr='A';
+//	terminal_putchar(*ptr);
 
 	while(1){
 	}

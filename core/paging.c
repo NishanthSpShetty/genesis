@@ -46,16 +46,16 @@ static uint32_t test_frame(uint32_t frame_addr){
 }
 
 static uint32_t first_frame(){
-	uint32_t i,j,test;
+	uint32_t i,j;
 
 	for(i=0; i<index_from_bit(nframes); i++){
 		//check whether no frame exist
 		if(frames[i]!=0xffffffff){
 			//if exist check for that one frame
 			for(j=0;j<32;j++){
-				test = 0x1<<j;
-				if(!(frames[i]&test)){
-					return i*(32)+j;
+				uint32_t test = 0x1<<j;
+				if(!(frames[i] & test)){
+					return i*4*8+j;
 				}
 			}
 		}
@@ -74,8 +74,8 @@ void alloc_frame(page_t *page,int is_kernel,int is_writable){
 	}
 	else{
 		free_index=first_frame();
-		if(free_index == -1){
-			//asm volatile("int $14");
+		if(free_index == (uint32_t)-1){
+			asm volatile("int $14");
 			return;
 		}
 	set_frame(free_index*0x1000);
@@ -109,22 +109,25 @@ void initialize_paging(){
 	int i = 0;
 	nframes = end_page/0x1000; //4096/4K
 
-	frames = (uint32_t*) kmalloc(index_from_bit(nframes),1,0);
+	frames = (uint32_t*) kmalloc(index_from_bit(nframes),0,0);
 
 	memset(frames,0,index_from_bit(nframes));
 
 	//create page directory
 	kernel_page_dir = (page_directory_t*)kmalloc(sizeof(page_directory_t),1,0);
+	memset(kernel_page_dir,0,sizeof(page_directory_t));
 	current_page_dir = kernel_page_dir;
 	//make kernel code space into page
+	
 	uint32_t page_addr=0;
-	while(i<1024){
+	while(page_addr<kernel_heap_addr){
 		alloc_frame(get_page(page_addr,1,kernel_page_dir),1,0);
 		page_addr+=0x1000;
+		
 	}
 
 	//enable paging by swithcing into kernel_page_dir
-//	switch_page_dir(kernel_page_dir);
+	switch_page_dir(kernel_page_dir);
 }
 
 //enable paging by writing CR0 reg 
@@ -133,14 +136,14 @@ void switch_page_dir(page_directory_t *dir){
 	current_page_dir = dir;
 	asm volatile("mov %0,%%cr3"::"r"(dir->table_physical_addr));
 	asm volatile("mov %%cr0,%0":"=r"(cr0));
-//	write_dec(cr0);
+	write_dec(cr0);
 	cr0|=0x80000000; //enable paging
 	asm volatile("mov %0,%%cr0"::"r"(cr0));
 }
 
 //get page function to return page from page_table_dir
 page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
-	uint32_t table_index,temp=0;
+	uint32_t table_index,temp;
 	address/=0x1000; //index
 	table_index = address/1024;
 
@@ -149,7 +152,13 @@ page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
 	}
 	else if(make){
 		dir->pages[table_index] = (page_table_t*)kmalloc((sizeof(page_table_t)),1,&temp);
+
+		memset(dir->pages[table_index],0,0x1000);
 		dir->table_physical_addr[table_index] = temp|0x7;
+		terminal_writestring("\nPage table address : ");
+		write_dec(dir->table_physical_addr);
+		terminal_writestring("\nPage table index : ");
+		write_dec(table_index);
 		return &dir->pages[table_index]->pages[address%1024];
 	}
 	else{
@@ -158,9 +167,7 @@ page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
 }
 
 
-
 //define page fault handler
-
 void page_fault_handler(register_t reg){
  	uint32_t fault_addr;
 	terminal_writestring("Page fault accured at : ");
