@@ -81,7 +81,7 @@ void alloc_frame(page_t *page,int is_kernel,int is_writable){
 	set_frame(free_index*0x1000);
 	page->present=0x1;
 	page->rw = (is_writable)?1:0;
-	page->user = (is_kernel)?1:0;
+	page->user = (is_kernel)?0:1;
 	page->frame = free_index;
 	}
 }
@@ -117,15 +117,14 @@ void initialize_paging(){
 	kernel_page_dir = (page_directory_t*)kmalloc(sizeof(page_directory_t),1,0);
 	current_page_dir = kernel_page_dir;
 	//make kernel code space into page
-	terminal_writestring("Initializing kernel frame\n");
-
-	while(i<kernel_heap_addr){
-		alloc_frame(get_page(i,1,kernel_page_dir),0,0);
-		i+=0x1000;
+	uint32_t page_addr=0;
+	while(i<1024){
+		alloc_frame(get_page(page_addr,1,kernel_page_dir),1,0);
+		page_addr+=0x1000;
 	}
 
 	//enable paging by swithcing into kernel_page_dir
-	switch_page_dir(kernel_page_dir);
+//	switch_page_dir(kernel_page_dir);
 }
 
 //enable paging by writing CR0 reg 
@@ -134,16 +133,16 @@ void switch_page_dir(page_directory_t *dir){
 	current_page_dir = dir;
 	asm volatile("mov %0,%%cr3"::"r"(dir->table_physical_addr));
 	asm volatile("mov %%cr0,%0":"=r"(cr0));
-	write_dec(cr0);
+//	write_dec(cr0);
 	cr0|=0x80000000; //enable paging
 	asm volatile("mov %0,%%cr0"::"r"(cr0));
 }
 
 //get page function to return page from page_table_dir
 page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
-	uint32_t table_index,temp=0;;
+	uint32_t table_index,temp=0;
 	address/=0x1000; //index
-	 table_index = address/1024;
+	table_index = address/1024;
 
 	if(dir->pages[table_index]){
 		return &dir->pages[table_index]->pages[address%1024];
@@ -165,7 +164,7 @@ page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
 void page_fault_handler(register_t reg){
  	uint32_t fault_addr;
 	terminal_writestring("Page fault accured at : ");
-//	write_dec(fault_addr);
+	write_dec(fault_addr);
 	terminal_writestring("\n Due to ");
-//	write_dec(reg.err_no);
+	write_dec(reg.err_no);
 }
