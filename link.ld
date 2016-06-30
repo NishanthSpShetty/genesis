@@ -1,7 +1,8 @@
-/*
- * linker script to link kernel.asn object and kernel.c object
+/*********************************************
+ * linker script to link all the object files
  * link.ld
- */
+ *
+ ********************************************/
 
 OUTPUT_FORMAT(elf32-i386)
 ENTRY(_start)
