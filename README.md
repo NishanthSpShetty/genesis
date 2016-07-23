@@ -1,6 +1,6 @@
-#Simple kernel
+#Kernel_32
 
-OS Kernel written using assembly and C.
+Hobby 32 bit OS Kernel written using C.
 
 To run :
 
