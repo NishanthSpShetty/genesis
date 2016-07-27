@@ -156,7 +156,7 @@ page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
 		memset(dir->pages[table_index],0,0x1000);
 		dir->table_physical_addr[table_index] = temp|0x7;
 		terminal_writestring("\nPage table address : ");
-		write_dec(dir->table_physical_addr);
+		//write_dec(dir->table_physical_addr);
 		terminal_writestring("\nPage table index : ");
 		write_dec(table_index);
 		return &dir->pages[table_index]->pages[address%1024];

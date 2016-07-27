@@ -70,5 +70,4 @@ void keyboard_handler();
 //keyboard irq initializer function
 //setup keyboard buffers
 void kbinit();
-
 #endif /*keyboard.h*/

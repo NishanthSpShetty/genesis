@@ -54,6 +54,7 @@ void clear_screen(){
 
 void clear_window(){
 	size_t x,y,index=0;
+	terminal_row = 2;
 	for(x=0;x<VGA_WIDTH;x++)
 		for(y=2;y<VGA_HEIGHT;y++){
 			index = y*VGA_WIDTH +x;
