@@ -52,7 +52,7 @@ void keyboard_handler(){
 			exec_command(cmd_buffer);
 			cmd_i = 0;	
 			clear_buffer();
-			terminal_writestring("-$"); 
+			terminal_writestring(">>"); 
 		
 		}
 	

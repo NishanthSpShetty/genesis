@@ -27,7 +27,7 @@ int exec_command(const char *cmd){
 		terminal_putchar('\n');
 	
 	}else{
-		terminal_writestring("invalid command\n");
+		error("Invalid command\n");
 	}
 
 }

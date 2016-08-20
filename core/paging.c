@@ -127,7 +127,7 @@ void initialize_paging(){
 	}
 
 	//enable paging by swithcing into kernel_page_dir
-	switch_page_dir(kernel_page_dir);
+//	switch_page_dir(kernel_page_dir);
 }
 
 //enable paging by writing CR0 reg 
@@ -169,9 +169,11 @@ page_t * get_page(uint32_t address,uint8_t  make, page_directory_t *dir){
 
 //define page fault handler
 void page_fault_handler(register_t reg){
- 	uint32_t fault_addr;
-	terminal_writestring("Page fault accured at : ");
+ 	uint32_t fault_addr = reg.int_no;
+	terminal_writestring("\nPage fault accured at : ");
 	write_dec(fault_addr);
-	terminal_writestring("\n Due to ");
+	terminal_writestring(" --->  Due to ");
+
 	write_dec(reg.err_no);
+//	while(1){}
 }

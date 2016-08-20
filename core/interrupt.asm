@@ -53,6 +53,7 @@ extern com_isr_handler
 isr0:
 	
 		cli
+		
 		push byte 0
 		push byte 0
 		jmp com_isr_stub_handler
@@ -145,10 +146,11 @@ isr13:
 isr14:
 	      
 		cli
-		push byte  14 ;err code
+		pusha
+		push byte 0xee ;err code
 		push byte  14
 		jmp com_isr_stub_handler
-
+		popa
 isr15:
 	      
 		cli

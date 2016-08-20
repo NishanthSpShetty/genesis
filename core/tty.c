@@ -64,8 +64,18 @@ void clear_window(){
 //Set the terminal color
 void terminal_setcolor(uint8_t color){
 	terminal_color = color;
+	
 }
 
+//error msg print
+
+void error(const char *msg){
+	uint8_t prev_color = terminal_color;
+	terminal_color = make_color(COLOR_RED,COLOR_BLACK);
+	terminal_writestring("[ERROR] : ");
+	terminal_writestring(msg);
+	terminal_color = prev_color;
+}
 
 //function to write the char on the screen at (x,y) location [RANDOM]
 void terminal_putentryat(char _char,uint8_t color,size_t y,size_t x){

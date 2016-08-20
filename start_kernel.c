@@ -30,7 +30,7 @@ void start_kernel(void){
 //	initialize_paging();
 	init_timer(1000);
 	terminal_writeat("Time:[",62,24);
-	terminal_writestring("Shell is ready for you... ;-)\n-$");
+	terminal_writestring("Shell is ready for you... ;-)\n>>");
 //	terminal_writestring("Testing paging...");
 //	uint32_t *ptr = (uint32_t*)0xafff0f0;
 //	asm volatile("int $14");
