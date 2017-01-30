@@ -104,7 +104,7 @@ void free_frame(page_t *page){
 
 //page initializer
 
-void initialize_paging(){
+void initialize_paging1(){
 	uint32_t end_page = 0x1000000; //2^64
 	int i = 0;
 	nframes = end_page/0x1000; //4096/4K
@@ -127,14 +127,16 @@ void initialize_paging(){
 	}
 
 	//enable paging by swithcing into kernel_page_dir
-//	switch_page_dir(kernel_page_dir);
+	switch_page_dir(kernel_page_dir);
 }
 
 //enable paging by writing CR0 reg 
-void switch_page_dir(page_directory_t *dir){
+//void switch_page_dir(page_directory_t *dir){
+void switch_page_dir(uint32_t *dir){
 	uint32_t cr0;
-	current_page_dir = dir;
-	asm volatile("mov %0,%%cr3"::"r"(dir->table_physical_addr));
+//	current_page_dir = dir;
+//	asm volatile("mov %0,%%cr3"::"r"(dir->table_physical_addr));
+	asm volatile("mov %0,%%cr3"::"r"(dir));
 	asm volatile("mov %%cr0,%0":"=r"(cr0));
 	write_dec(cr0);
 	cr0|=0x80000000; //enable paging
@@ -175,5 +177,4 @@ void page_fault_handler(register_t reg){
 	terminal_writestring(" --->  Due to ");
 
 	write_dec(reg.err_no);
-//	while(1){}
 }

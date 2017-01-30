@@ -21,7 +21,7 @@ void start_kernel(void){
 	clear_screen();
 	terminal_setcolor(make_color(COLOR_BLUE,COLOR_LIGHT_CYAN));
 	terminal_writestring("-------------------------------------Ni-OS--------------------------------------");
-//	terminal_writeat("Nishanth Shetty [",57,24);
+	terminal_writeat("Nishanth Shetty ",0,24);
 	terminal_setcolor(make_color(COLOR_GREEN,COLOR_BLACK));
 //	terminal_writestring("Implementation of a kernel");
 
@@ -31,8 +31,8 @@ void start_kernel(void){
 	init_timer(1000);
 	terminal_writeat("Time:[",62,24);
 	terminal_writestring("Shell is ready for you... ;-)\n>>");
-//	terminal_writestring("Testing paging...");
-//	uint32_t *ptr = (uint32_t*)0xafff0f0;
+	terminal_writestring("Testing paging...");
+//	uint32_t *ptr = (uint32_t*)0xafff0;
 //	asm volatile("int $14");
 //	uint32_t fault = *ptr;
 //	*ptr='A';

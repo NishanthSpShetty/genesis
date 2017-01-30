@@ -58,7 +58,7 @@ void initialize_paging();
 
 //page directory loader -> CR3
 
-void switch_page_dir(page_directory_t *new_dir);
+void switch_page_dir(uint32_t *new_dir);
 
 /*get page pointer
  * make : if not present in page table create it

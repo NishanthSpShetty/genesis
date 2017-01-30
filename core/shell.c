@@ -17,7 +17,7 @@ int exec_command(const char *cmd){
 
 	if(str_cmp(shell_cmd,"clear")==0){
 		//terminal_writestring("Clearing,,,,,");
-//		clear_screen();
+		//clear_screen();
 		clear_window();
 	}else if(str_cmp(shell_cmd,"echo")==0){
 		terminal_writestring(cmd+i);

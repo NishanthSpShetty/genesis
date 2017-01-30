@@ -8,7 +8,7 @@
 uint32_t kernel_heap = (uint32_t)&kernel_heap_addr;
 
 uint32_t kmalloc(uint32_t size,uint8_t align,uint32_t *phy_addr){
-	uint32_t temp;;
+	uint32_t temp;
 	// If the address is not already page-aligned
 	// Align it.
 	if (align == 1 && (kernel_heap & 0xFFFFF000))  {
@@ -18,6 +18,7 @@ uint32_t kmalloc(uint32_t size,uint8_t align,uint32_t *phy_addr){
 	if(phy_addr){
 		*phy_addr = kernel_heap;
 	}
+	temp = kernel_heap;
 	//reset kernel heap
 	kernel_heap+=size;
 	//return the pointer to heap

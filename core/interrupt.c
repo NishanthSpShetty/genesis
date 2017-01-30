@@ -26,7 +26,7 @@ void com_isr_handler(register_t reg){
 		case 10:
 		case 11:
 		case 12:
-		case 13:
+//		case 13:
 		case 15:
 		case 16:
 		case 17:
@@ -44,8 +44,9 @@ void com_isr_handler(register_t reg){
 		case 31:
 			terminal_writestring("\nInterrupt handler for this interrupt hasn't been registered yet.");
 			write_dec(reg.int_no);	
+			while(1){}
 			break;
-			
+			return;	
 		case 14:
 			page_fault_handler(reg);
 			break;
@@ -63,6 +64,7 @@ void com_isr_handler(register_t reg){
 		default:
 			terminal_writestring("\nInterrupt handler for this interrupt hasn't been registered yet.");
 			write_dec(reg.int_no);	
+	while(1){}
 	}
 	
 
