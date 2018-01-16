@@ -33,17 +33,17 @@ Make will build and create bootable iso using grub tools. To build the OS use fo
 ```
     make all
     qemu-system-i386 -cdrom myos.iso
-	```
+```
 
 You can compile and bring up the system with following command.
 
 
 ```
     make qemu
-    ```
+```
 
 To clean the project, issue following command.
 
 ```
     make clean
-    ```
+```
