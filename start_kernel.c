@@ -1,5 +1,7 @@
-/*
-   kernel.c
+/**
+ * kernel.c
+ * c entrypoint
+ *
  */
 
 #include "kernel/tty.h"
@@ -10,7 +12,9 @@
 #include "kernel/paging.h"
 #include "include/stdtypes.h"
 #include "include/string.h"
+
 //temp key value storage
+
 void start_kernel(void){
 	//initialize the terminal
 	terminal_initialize();
@@ -37,6 +41,7 @@ void start_kernel(void){
 //	uint32_t fault = *ptr;
 //	*ptr='A';
 //	terminal_putchar(*ptr);
+
 	while(1){
 	}
 }
