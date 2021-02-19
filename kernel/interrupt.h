@@ -1,23 +1,22 @@
 #ifndef INTERRUPT_H
 #define INTERRUPT_H
 
-/*This hedaer file containes the 
+/*This hedaer file containes the
  * declaration interrupt handler vector.
  * */
 
-//register struct
-#include "include/stdtypes.h"
+// register struct
+#include "../include/stdtypes.h"
 
+typedef struct {
+    uint32_t ds;
+    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
+    uint32_t int_no, err_no;
+    uint32_t eip, cs, eflags, useresp, ss;
+} register_t;
 
-typedef struct{
-	uint32_t ds;
-	uint32_t edi,esi,ebp,esp,ebx,edx,ecx,eax;
-	uint32_t int_no,err_no;
-	uint32_t eip,cs,eflags,useresp,ss;
-}register_t;
-
-//interrupt service routine handler
-//definied in asm
+// interrupt service routine handler
+// definied in asm
 extern void isr0();
 extern void isr1();
 extern void isr2();
@@ -66,6 +65,5 @@ extern void isr44();
 extern void isr45();
 extern void isr46();
 extern void isr47();
-
 
 #endif /* INTERRUPT_H */
